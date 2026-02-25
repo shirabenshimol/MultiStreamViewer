@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="MultiStreamViewer.StreamTile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF">
+    <Border x:Name="Frame" CornerRadius="12" BorderThickness="2" BorderBrush="Gray" Padding="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <vlc:VideoView x:Name="VideoView" />
+               <TextBlock x:Name="Overlay"
+           Text="NO SIGNAL"
+           FontSize="18"
+           FontWeight="Bold"
+           Opacity="0.75"
+           Foreground="White"
+           TextAlignment="Center"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"/>
+                <Border VerticalAlignment="Top" Height="34" Background="Transparent"/>
+
+            </Grid>
+
+
+                <StackPanel Grid.Row="1" Margin="0,8,0,0">
+                <Grid Margin="0,0,0,6">
+
+                    <TextBlock x:Name="UrlPreview"
+                Text="{Binding Text, ElementName=UrlBox}"
+                TextTrimming="CharacterEllipsis"
+                ToolTip="{Binding Text, ElementName=UrlBox}"
+                Height="30"
+                MaxWidth="330"
+                TextWrapping="NoWrap"
+                Padding="6,6,6,0"
+                Background="White"
+                Foreground="Black"
+                VerticalAlignment="Center"
+                Visibility="Visible"
+                MouseDown="UrlPreview_MouseDown"/>
+
+                    <!-- עריכה אמיתית -->
+                <TextBox x:Name="UrlBox"
+                 Height="30"
+                 Text="rtsp://..."
+                 KeyDown="UrlBox_KeyDown"
+                 LostKeyboardFocus="UrlBox_LostKeyboardFocus"
+                 Visibility="Collapsed"/>
+                </Grid>
+                    
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Connect" Width="90" Click="Connect_Click"/>
+                    <Button x:Name="PauseBtn" Content="Pause" Width="90" Margin="8,0,0,0" Click="Pause_Click"/>
+                    <Button Content="Stop" Width="90" Margin="8,0,0,0" Click="Stop_Click"/>
+                    <TextBlock x:Name="StatusText" Margin="12,6,0,0" FontWeight="SemiBold"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
